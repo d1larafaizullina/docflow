@@ -8,26 +8,20 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
-    __tablename__ = 'users'
+    __tablename__ = 'ord_reg'
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    surname = sqlalchemy.Column(sqlalchemy.String(250), nullable=False)
-    name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
-    age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-    position = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    speciality = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    address = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    email = sqlalchemy.Column(sqlalchemy.String,
-                              index=True, unique=True, nullable=True)
-    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    modified_date = sqlalchemy.Column(sqlalchemy.DateTime,
-                                      default=datetime.datetime.now)
+    nick = sqlalchemy.Column(sqlalchemy.String(50), nullable=False)
+    fio = sqlalchemy.Column(sqlalchemy.String(100), nullable=True)
+    podr = sqlalchemy.Column(sqlalchemy.String(50), nullable=True)
+    _pass = sqlalchemy.Column(sqlalchemy.String(10), nullable=True)
+    # hashed_pass = sqlalchemy.Column(sqlalchemy.String(50), nullable=True)
 
     def __repr__(self):
-        return "<Colonist> " + str(self.id) + ' ' + self.surname + ' ' + self.name
+        return "<ord_reg> " + str(self.id) + ' ' + self.nick + ' ' + self.fio
 
-    def set_password(self, password):
-        self.hashed_password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.hashed_password, password)
+    # def set_password(self, password):
+    #     self.hashed_pass = generate_password_hash(password)
+    #
+    # def check_password(self, password):
+    #     return check_password_hash(self.hashed_pass, password)
